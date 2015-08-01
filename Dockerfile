@@ -1,21 +1,20 @@
-FROM debian:8.0 
-MAINTAINER Daniele Demichelis <demichelis@danidemi.com>
+FROM ubuntu:latest
+MAINTAINER Nathan Craike <ncraike@gmail.com>
 
-# Install systems 
-RUN apt-get update; apt-get install procps -yy
-RUN apt-get purge procps -yy && apt-get clean -y && apt-get autoclean -y && apt-get autoremove -y
-RUN apt-get -y install curl
+RUN apt-get update
+
+RUN apt-get -y install \
+        curl \
+        build-essential \
+        git \
+        pandoc
 
 # Install node.js
 RUN curl -sL https://deb.nodesource.com/setup | bash -
-RUN apt-get install -y nodejs
-RUN apt-get install -y build-essential
+RUN apt-get -y install nodejs
 
 # Install grunt
 RUN npm install -g grunt-cli
-
-# Install git
-RUN apt-get install -y git
 
 # Install reveal.js
 RUN git clone https://github.com/hakimel/reveal.js.git
@@ -49,10 +48,6 @@ RUN ["ln", "-s", "/reveal.js/css/print/pdf.css",  "/pandoc/reveal.js/css/print/p
 RUN ["ln", "-s", "/reveal.js/css/theme/",         "/pandoc/reveal.js/css/theme"]
 RUN ["ln", "-s", "/reveal.js/plugin",             "/pandoc/reveal.js/plugin"]
 
-RUN apt-get -y install pandoc
-
 WORKDIR reveal.js 
 CMD grunt serve
 EXPOSE 8000
-
-

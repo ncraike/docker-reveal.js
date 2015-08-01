@@ -4,6 +4,6 @@
 # Build the Docker image using the Dockerfile in this directory.
 # ==============================================================
 
-docker build -t "danidemi/docker-reveal.js:latest" .
+docker build -t "ncraike/reveal.js:latest" .
 
 
